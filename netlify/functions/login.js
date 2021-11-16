@@ -12,17 +12,16 @@ exports.handler = async (event, context) => {
 
   try {
 		
-		const auth = JSON.parse(event.body);
-    console.log(event.body);
+		const { email, password }  event.body;
 		
-    if (!(auth.email && auth.password)) {
+    if (!(email && password)) {
       return { statusCode: 400, headers, body:"All input is required"};
     }
 
     let user = {'_id':1,'password':'','token':''};
     user.password = await bcrypt.hash('12345', 10);
 
-    if (await bcrypt.compare(auth.password, user.password)) {
+    if (await bcrypt.compare(password, user.password)) {
       const token = jwt.sign(
         { user_id: user._id, email },
         process.env.TOKEN_KEY,
