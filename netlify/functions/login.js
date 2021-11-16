@@ -14,7 +14,7 @@ exports.handler = async (event, context) => {
 		const { email, password } = event.body;
 
     if (!(email && password)) {
-      return { statusCode: 400, headers, body:"All input is required");
+      return { statusCode: 400, headers, body:"All input is required"};
     }
 
     let user = {'_id':1,'password':'','token':''};
