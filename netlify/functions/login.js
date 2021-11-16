@@ -28,9 +28,9 @@ exports.handler = async (event, context) => {
           expiresIn: "2h",
         }
      );
-
-      user.token = token;
-      return { statusCode: 200, headers, body: JSON.stringify(user)};
+		 console.log(token);
+     user.token = token;
+     return { statusCode: 200, headers, body: JSON.stringify(user)};
     }
 		return { statusCode: 400, headers, body: 'Invalid Credentials' };
   } catch (error) {
