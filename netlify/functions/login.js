@@ -12,7 +12,9 @@ exports.handler = async (event, context) => {
 
   try {
 		
-		const { email, password } = event.body;
+		const auth = JSON.parse(event.body);
+		
+		console.log(JSON.stringify(auth));
 		
     if (!(email && password)) {
       return { statusCode: 400, headers, body:"All input is required"};
