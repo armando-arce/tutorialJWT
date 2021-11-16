@@ -2,6 +2,7 @@
 
 const headers = require('./headersCORS');
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 
 exports.handler = async (event, context) => {
 
