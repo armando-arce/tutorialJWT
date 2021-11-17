@@ -18,7 +18,7 @@ exports.handler = async (event, context) => {
       return { statusCode: 400, headers, body:"All input is required"};
     }
 
-    let user = {'_id':1,'password':'','token':''};
+    let user = {'_id':1,'password':''};
     user.password = await bcrypt.hash('12345', 10);
 
     if (await bcrypt.compare(data.password, user.password)) {
