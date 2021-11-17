@@ -14,9 +14,7 @@ exports.handler = async (event, context) => {
 		
 		const auth = JSON.parse(event.body);
 		
-		console.log(JSON.stringify(auth));
-		
-    if (!(email && password)) {
+    if (!(auth.email && auth.password)) {
       return { statusCode: 400, headers, body:"All input is required"};
     }
 
@@ -25,7 +23,7 @@ exports.handler = async (event, context) => {
 
     if (await bcrypt.compare(password, user.password)) {
       const token = jwt.sign(
-        { user_id: user._id, email },
+        { user_id: user._id, auth.email },
         process.env.TOKEN_KEY,
         {
           expiresIn: "2h",
