@@ -31,7 +31,7 @@ exports.handler = async (event, context) => {
        );
 
       user.token = token;
-      return { statusCode: 200, headers, body: user};
+      return { statusCode: 200, headers, body: JSON.stringify(user)};
     }
 		return { statusCode: 400, headers, body: 'Invalid Credentials' };
   } catch (error) {
