@@ -23,7 +23,7 @@ exports.handler = async (event, context) => {
 
     if (await bcrypt.compare(data.password, user.password)) {
       const token = jwt.sign(
-         { user_id: user._id, data.email },
+         { user_id: user._id, email:data.email },
          process.env.TOKEN_KEY,
          {
            expiresIn: "2h",
