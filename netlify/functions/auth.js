@@ -10,15 +10,15 @@ exports.handler = async (event, context) => {
   }
 
   try {
-    const token = event.body.token || event.query.token ||
-      event.headers["x-access-token"];
 
-   if (!token) {
+    const data = JSON.parse(event.body);
+
+   if (!data.token) {
       return { statusCode: 400, headers, body: 
          'A token is required for authentication' };
     }
     try {
-      const decoded = jwt.verify(token, process.env.TOKEN_KEY);
+      const decoded = jwt.verify(data.token, process.env.TOKEN_KEY);
     } catch (err) {
       return { statusCode: 400, headers, body: 'Invalid Token' };
     }
