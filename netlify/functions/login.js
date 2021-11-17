@@ -19,7 +19,7 @@ exports.handler = async (event, context) => {
     }
 
     let user = {'_id':1,'token':''};
-    passwd = await bcrypt.hash('12345', 10);
+    let passwd = await bcrypt.hash('12345', 10);
 
     if (await bcrypt.compare(data.password, passwd)) {
       user.token = jwt.sign(
