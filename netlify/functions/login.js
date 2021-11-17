@@ -2,7 +2,6 @@
 
 const headers = require('./headersCORS');
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
 
 exports.handler = async (event, context) => {
 
@@ -12,26 +11,26 @@ exports.handler = async (event, context) => {
 
   try {
 		
-		const auth = JSON.parse(event.body);
-		
-    if (!(auth.email && auth.password)) {
-      return { statusCode: 400, headers, body:"All input is required"};
+		const data = JSON.parse(event.body);
+
+    if (!(data.email && data.password)) {
+      return { statusCode: 400, headers, body:"All input is required");
     }
 
     let user = {'_id':1,'password':'','token':''};
     user.password = await bcrypt.hash('12345', 10);
 
-    if (await bcrypt.compare(password, user.password)) {
+    if (await bcrypt.compare(data.password, user.password)) {
       const token = jwt.sign(
-        { user_id: user._id, user_email: auth.email },
-        process.env.TOKEN_KEY,
-        {
-          expiresIn: "2h",
-        }
-     );
-		 console.log(token);
-     user.token = token;
-     return { statusCode: 200, headers, body: JSON.stringify(user)};
+         { user_id: user._id, data.email },
+         process.env.TOKEN_KEY,
+         {
+           expiresIn: "2h",
+         }
+       );
+
+      user.token = token;
+      return { statusCode: 200, headers, body: user};
     }
 		return { statusCode: 400, headers, body: 'Invalid Credentials' };
   } catch (error) {
